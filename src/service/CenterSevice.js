@@ -1,6 +1,9 @@
 const db = require('../models');
 const bcrypt = require('bcryptjs');
 const AuthService = require('./AuthService');
+const emailService = require('./emailService');
+const { v4: uuidv4 } = require('uuid');
+
 const salt = bcrypt.genSaltSync(10);
 const Chance = require('chance');
 const chance = new Chance();
@@ -71,12 +74,12 @@ let seedData = async () => {
         
             if(profile.gender==true){
                 profile.update({
-                    avatar:'https://res.cloudinary.com/drotiisfy/image/upload/v1665540808/profiles/male_default_avatar.jng_tgqrqf.jpg'
+                    avatar:'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
                 })
             }
             else{
                 profile.update({
-                    avatar: 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540809/profiles/female_defaule_avatar_ezuxcv.jpg'
+                    avatar: 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
                 })
             }
 
@@ -141,9 +144,17 @@ let createCenter = async (data) => {
                         email: data.email,
                         adress: data.address,
                         phoneNumber: data.phoneNumber,
-                        picture: data.image,
+                        picture: data.images,
                         account_id: account.id
                     })
+                    id = uuidv4();
+                    if (data.active == '1') {
+                        emailService.sendEmailCreatedCenter({
+                            receiverEmail: data.email,
+                            patientName: data.email,
+                            password: data.password
+                        });
+                    }
                     resolve({
                         errCode: 0,
                         message: center

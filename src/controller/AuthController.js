@@ -25,8 +25,9 @@ let handleLogin = async (req, res) => {
             id: accountData.account.id,
             role_name: accountData.account.role.name
         }
-        accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
-        refreshToken = jwt.sign(data, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
+    console.log("XXXXXXXXXX" +process.env.JWT_SECRET);
+        accessToken = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '1d' });
+        refreshToken = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '365d' });
     }
 
     return res.status(200).json(
@@ -39,7 +40,7 @@ let handleLogin = async (req, res) => {
         }
     )
 }
-let signin = async (req, res) => {
+let signup = async (req, res) => {
 
     if (!req.body.email || !req.body.password || !req.body.name || !req.body.gender || !req.body.phoneNumber || !req.body.birthday || !req.body.address) {
         return res.status(400).json({
@@ -62,9 +63,9 @@ let signin = async (req, res) => {
 
     if (!req.file) {
         if (req.body.gender === '1') {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540808/profiles/male_default_avatar.jng_tgqrqf.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
         } else {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540809/profiles/female_defaule_avatar_ezuxcv.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
         }
     } else {
         req.body.image = req.file.path;
@@ -135,7 +136,7 @@ let refreshAccessToken=async(req,res)=>{
 }
 module.exports = {
     handleLogin: handleLogin,
-    signin: signin,
+    signup : signup,
     upload: upload,
     verifyUser:verifyUser,
     refreshAccessToken:refreshAccessToken

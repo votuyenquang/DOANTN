@@ -4,10 +4,11 @@ const connectDB = require('./config/connectDB');
 const route = require('./routes')
 const app = express()
 const port = 3000
+const morgan = require('morgan');
 const cors = require('cors');
-
+const dotenv = require('dotenv').config();
 app.use(function(req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*");
+
   // const allowedOrigins = ['http://localhost:3000','https://trungtamquanlytremocoi.onrender.com'];
   const allowedOrigins = ['http://localhost:3000'];
   const origin = req.headers.origin;
@@ -21,6 +22,7 @@ app.use(function(req, res, next) {
 });
 
 connectDB()
+app.use(morgan('dev'));
 
 app.use(cors());
 app.use(bodyParser.json())

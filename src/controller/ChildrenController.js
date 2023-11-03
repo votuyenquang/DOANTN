@@ -90,9 +90,9 @@ let create=async(req,res)=>{
     }
     if (!req.file) {
         if (req.body.gender === '1') {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540808/profiles/male_default_avatar.jng_tgqrqf.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
         } else {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540809/profiles/female_defaule_avatar_ezuxcv.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
         }
     } else {
         req.body.image = req.file.path;

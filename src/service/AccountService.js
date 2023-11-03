@@ -19,7 +19,7 @@ let hashUserPassword = (password) => {
     })
 }
 let buildUrlEmail= (token) =>{
-    let result = `https://trungtamquanlytremocoi.onrender.com/auth/verify-account?token=${token}` 
+    let result = `localhost:3000/auth/verify-account?token=${token}` 
     return result;
 }
 
@@ -49,7 +49,7 @@ let createNewAccount = async (data, roleName) => {
 
                     let hashPasswordFromBcrypt = await hashUserPassword(data.password);
                     let [role, created] = await db.Role.findOrCreate({
-                        where: { name: 'user' }
+                        where: { name: roleName }
                     })
                     const profile = await db.Profile.create({
                         name: data.name,

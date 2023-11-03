@@ -12,9 +12,9 @@ const db = {};
 
 let sequelize;
 sequelize = new Sequelize('doantn',
-process.env.username
+'psiyt6380wj4qsozvd90'
  ,
- process.env.PASS
+ 'pscale_pw_vCCiHXCCxk2IjKsQ8fTJDWfG5siqMctC9PNv84CUc6m'
  , {
   host: 'aws.connect.psdb.cloud',
   dialect: 'mysql',

@@ -116,7 +116,7 @@ let getaccountById= async(req,res)=>{
         return res.status(200).json(resData);
     }
 }
-let createACcount =async(req,res)=>{
+let createAccount =async(req,res)=>{
     if (!req.body.email || !req.body.password || !req.body.name || !req.body.gender || !req.body.phoneNumber || !req.body.birthday || !req.body.address) {
         return res.status(400).json({
             erroCode: 1,
@@ -138,16 +138,16 @@ let createACcount =async(req,res)=>{
 
     if (!req.file) {
         if (req.body.gender === '1') {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540808/profiles/male_default_avatar.jng_tgqrqf.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
         } else {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540809/profiles/female_defaule_avatar_ezuxcv.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
         }
     } else {
         req.body.image = req.file.path;
     }
    
     req.body.active = '1'
-    let message = await AccountService.createNewAccount(req.body, 'user');
+    let message = await AccountService.createNewAccount(req.body, 'admin');
     console.log(message)
     if (message.errCode == 0) {
         return res.status(200).json(message.errCode);
@@ -185,9 +185,9 @@ let  UpdateAccounttoadmin=async(req,res)=>{
 
     if (!req.file) {
         if (req.body.gender === '1') {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540808/profiles/male_default_avatar.jng_tgqrqf.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
         } else {
-            req.body.image = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540809/profiles/female_defaule_avatar_ezuxcv.jpg'
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
         }
     } else {
         req.body.image = req.file.path;
@@ -208,14 +208,57 @@ let  UpdateAccounttoadmin=async(req,res)=>{
     })
 }
 }
+
+
+let createAccountCenter =async(req,res)=>{
+    if (!req.body.email || !req.body.password || !req.body.name || !req.body.gender || !req.body.phoneNumber || !req.body.birthday || !req.body.address) {
+        return res.status(400).json({
+            erroCode: 1,
+            message: 'nhập đầy đủ thông tin'
+        })
+    }
+    if (req.body.password.length < 5 || req.body.password.length > 15) {
+        return res.status(400).json({
+            erroCode: 1,
+            message: 'độ dài mật khẩu phải lớn hơn hoặc bằng 5 ký tự và không quá 15 ký tự'
+        })
+    }
+    if (!moment(req.body.birthday, 'YYYY-MM-DD', true).isValid()) {
+        return res.status(400).json({
+            erroCode: 1,
+            message: 'định dạng birthday không đúng. Ví dụ về định dạng đúng : 2022-11-20'
+        })
+    }
+
+    if (!req.file) {
+        if (req.body.gender === '1') {
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
+        } else {
+            req.body.image = 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
+        }
+    } else {
+        req.body.image = req.file.path;
+    }
+   
+    req.body.active = '1'
+    let message = await AccountService.createNewAccount(req.body, 'center');
+    console.log(message)
+    if (message.errCode == 0) {
+        return res.status(200).json(message.errCode);
+    } else if (message.errCode == 1) {
+        return res.status(409).json(message.errCode);
+    }
+}
+
 module.exports = {
-    ResetPassword:ResetPassword,
-    DeleteAccount:DeleteAccount,
-    getAllAcount:getAllAcount,
-    UpdateAccount:UpdateAccount,
-    changePassword:changePassword,
-    getaccountById:getaccountById,
-    createACcount:createACcount,
-    UpdateAccounttoadmin:UpdateAccounttoadmin
+    ResetPassword,
+    DeleteAccount,
+    getAllAcount,
+    UpdateAccount,
+    changePassword,
+    getaccountById,
+    createAccount,
+    UpdateAccounttoadmin,
+    createAccountCenter
     
 }

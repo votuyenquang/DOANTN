@@ -3,11 +3,16 @@ const jwt = require('jsonwebtoken');
 dotenv.config();
 
 let authenToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-    console.log(process.env.ACCESS_TOKEN_SECRET)
-    console.log(token)
+  console.log(req.headers);
+    // const token = req.headers['authorization'];
+   let token;
+  
+   if(req?.headers?.authorization.startsWith('Bearer')){
+       token = req.headers.authorization.split(' ')[1] }
+  
+    
     if (!token) res.sendStatus(403); // khong co token
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
         if (err) {
             return res.sendStatus(401).send({ message: "Unauthorized!" }); // khong co quyen truy cap chuc nang
           }

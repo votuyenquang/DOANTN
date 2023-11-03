@@ -12,8 +12,10 @@ router.get('/',authJwt.authenToken,authJwt.isAdmin,AccountController.getAllAcoun
 router.post('/profile/:id',authJwt.authenToken,fileUploader.single('image'),AccountController.UpdateAccount)//user,admin
 router.delete('/:id',authJwt.authenToken,authJwt.isAdmin,AccountController.DeleteAccount)
 router.get('/:id',authJwt.authenToken, AccountController.getaccountById);//
-router.get('/enable/:id',authJwt.authenToken,authJwt.isAdmin,)
 router.get('/enable/:id',authJwt.authenToken,authJwt.isAdmin)
-router.post('/create',authJwt.authenToken,authJwt.isAdmin,fileUploader.single('image'),AccountController.createACcount)
+router.get('/enable/:id',authJwt.authenToken,authJwt.isAdmin)
+router.post('/create',authJwt.authenToken,authJwt.isAdmin,fileUploader.single('image'),AccountController.createAccount)
+router.post('/createAccCenter',authJwt.authenToken,authJwt.isAdmin,fileUploader.single('image'),AccountController.createAccountCenter)
+
 router.post('/update/:id',authJwt.authenToken,authJwt.isAdmin,fileUploader.single('image'),AccountController.UpdateAccounttoadmin)
 module.exports = router

@@ -32,15 +32,17 @@ let create = async (req, res) => {
         })
     }
     if (req.body.gender === '1') {
-        req.body.images = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540808/profiles/male_default_avatar.jng_tgqrqf.jpg'
+        req.body.images = 'https://res.cloudinary.com/dfw20cady/image/upload/v1687921180/uftgfshktg8uuqn07xru.jpg'
     } else {
-        req.body.images = 'https://res.cloudinary.com/drotiisfy/image/upload/v1665540809/profiles/female_defaule_avatar_ezuxcv.jpg'
+        req.body.images = 'https://res.cloudinary.com/dfw20cady/image/upload/v1689362567/febkodbj7iuqalbvdr74.jpg'
     }
     req.body.active = '1'
     let message = await CenterSevice.createCenter(req.body)
     if (message.errCode == 0) {
+        console.log(message);
         return res.status(200).json(message.errCode);
     } else if (message.errCode == 1) {
+        console.log(message);
         return res.status(409).json(message.errCode);
     }
 

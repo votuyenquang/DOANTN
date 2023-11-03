@@ -60,6 +60,7 @@ let checkAccountEmail = (email) => {
                     where: { email: email }
                 }
             )
+         
             if (AccoutData) {
                 resolve(true)
             }
@@ -69,20 +70,21 @@ let checkAccountEmail = (email) => {
 
         } catch (error) {
             reject(error)
+
         }
     })
 }
 let refreshTokenService =(token) => {
     return new Promise((resolve, reject) => {
         try {
-            jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, function(err, data) {
+            jwt.verify(token, process.env.JWT_SECRET, function(err, data) {
                 if(err){
                     resolve(404).json({
                         message: 'The user is not authemtication'
                     })
                 }
                 if(user){
-                    const newAcessToken = jwt.sign({ email: data.email, id: data.id,role_name:data.role_name },process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+                    const newAcessToken = jwt.sign({ email: data.email, id: data.id,role_name:data.role_name },process.env.JWT_SECRET, { expiresIn: '1d' })
                     resolve({
                         status: 'OK',
                         access_token : newAcessToken
